@@ -1,13 +1,12 @@
+
 import type { NextPage } from 'next'
-import { useState } from 'react'
-import { executeRequest } from '../services/api';
-import { AccessTokenProps } from '../types/AccessTokenProps';
 
 type HeaderProps = {
-    sair() : void
+    sair() : void,
+    setShowModal(b:boolean):void
 }
 
-const Header: NextPage<HeaderProps> = ({ sair }) => {
+const Header: NextPage<HeaderProps> = ({ sair, setShowModal }) => {
 
   const fullName = localStorage.getItem('userName');
   const userName = fullName?.split(' ')[0] || '';
@@ -15,7 +14,7 @@ const Header: NextPage<HeaderProps> = ({ sair }) => {
   return (
     <div className="container-header">
       <img src="/logo.svg" alt="Logo Fiap" className="logo"/>
-      <button><span>+</span> Adicionar Tarefa</button>
+      <button onClick={() => setShowModal(true)}><span>+</span> Adicionar Tarefa</button>
       <div className="mobile">
         <span>Olá, {userName}</span>
         <img src="/exit-mobile.svg" alt="Deslogar" onClick={sair}/>
