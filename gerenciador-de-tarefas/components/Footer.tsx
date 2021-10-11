@@ -1,16 +1,21 @@
 import type { NextPage } from 'next'
+import {Task} from "../types/task";
+import {Item} from "./Item";
 
 type FooterProps = {
-  setShowModal(b:boolean):void
+  showModal: () => void;
 }
 
-const Footer: NextPage<FooterProps> = ({ setShowModal}) => {
+const Footer: NextPage<FooterProps> = ({
+   showModal
+}) => {
   return (
-    <div className="container-footer">
-        <button onClick={() => setShowModal(true)}><img src="/add.svg" alt="Adicionar tarefa"></img> Adicionar Tarefa</button>
-        <span>© Copyright {new Date().getFullYear()} Fiap. Todos os direitos reservados.</span>
+    <div className={`container-footer`}>
+      <button onClick={showModal}>
+        <img src={"/add.svg"} /> Adicionar uma Tarefa
+      </button>
+      <span>© Copyright 2021. Todos os direitos reservados.</span>
     </div>
   )
 }
-
 export { Footer }

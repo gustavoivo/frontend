@@ -1,75 +1,74 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
-import { executeRequest } from '../services/api';
-import { AccessTokenProps } from '../types/AccessTokenProps';
+import {useState} from "react";
+import {executeRequest} from "../services/api";
+import { LoginProps } from "../types/login-props";
 
-const Login: NextPage<AccessTokenProps> = ({
-  setAccessToken
+
+export const Login: NextPage<LoginProps> = ({
+  Enter,
+  ClickRegister
 }) => {
-
-  const [login, setLogin] = useState('teste');
-  const [password, setPassword] = useState('');
-  const [msgErro, setMsgErro] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [msgError, setMsgError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   const doLogin = async (e : any) =>{
+    setMsgError("");
+    setLoading(true);
+
     try{
-      setLoading(true);
       e.preventDefault();
-      
-      if(!login || !password){
-        setMsgErro('Parâmetros de entrada inválidos');
-          setLoading(false);
+
+      if(!email || !password){
+        setMsgError('Parâmetros de entrada inválidos');
+        setLoading(false);
         return;
       }
 
       const body = {
-        login,
+        email,
         password
       }
 
       const result = await executeRequest('login', 'POST', body);
-      
-      setMsgErro('');
-      if(result && result.data){
-        localStorage.setItem('accessToken', result.data.token);
-        localStorage.setItem('userName', result.data.name);
-        localStorage.setItem('userEmail', result.data.email);
-        setAccessToken(result.data.token);
-      }else{
-        setMsgErro('Nao foi possivel processar login tente novamente!');
+
+      if(!result || !result.data){
+        setMsgError('Nao foi possivel processar login tente novamente!');
       }
-    }catch(e : any){
-      console.log(e);
+
+      Enter(result.data.name, result.data.email, result.data.token);
+    } catch(e : any){
       if(e?.response?.data?.error){
-        setMsgErro(e?.response?.data?.error);
+        setMsgError(e?.response?.data?.error);
       }else{
-        setMsgErro('Ocorreu erro ao processar login tente novamente!');
+        setMsgError('Ocorreu erro ao processar login tente novamente!');
       }
     }
 
     setLoading(false);
   }
 
+
   return (
-    <div className="container-login">
-      <img src="/logo.svg" alt="Logo Fiap" className="logo"/>
+    <div className={"container-login"}>
+      <img className={"logo"} src={"/logo.svg"} alt={"logo fiap"}/>
       <form>
-        {msgErro && <p>{msgErro}</p>}
-        <div className="input">
-          <img src="/mail.svg" alt="Logo Fiap"/>
-          <input type="text" placeholder="Informe seu email"
-            value={login} onChange={e => setLogin(e.target.value)} />
+        {msgError && <p>{msgError}</p>}
+        <div className={"input"}>
+          <img src={"/mail.svg"} alt={"email"} />
+          <input type={"email"} placeholder={"Email"} value={email} onChange={event => setEmail(event.target.value)}/>
         </div>
-        <div className="input">
-          <img src="/lock.svg" alt="Logo Fiap"/>
-          <input type="password" placeholder="Informe sua senha"
-            value={password} onChange={e => setPassword(e.target.value)}/>
+        <div className={"input"}>
+          <img src={"/lock.svg"} alt={"password"} />
+          <input type={"password"} placeholder={"Senha"} value={password} onChange={event => setPassword(event.target.value)}/>
         </div>
-        <button className={isLoading ? "disabled" : ""} type="button" onClick={doLogin} disabled={isLoading}>{isLoading ? "...Carregando" : "Login"}</button>
+        <button className={isLoading ? "disabled" : ""} type="submit" onClick={doLogin} disabled={isLoading}>{isLoading ? "...Carregando" : "Login"}</button>
+        <div className={"register-container"}>
+          <button className={"button-register"} onClick={ClickRegister}>Cadastrar</button>
+        </div>
       </form>
     </div>
   )
 }
 
-export { Login }

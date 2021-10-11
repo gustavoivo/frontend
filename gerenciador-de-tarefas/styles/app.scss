@@ -1,89 +1,80 @@
 @import "~bootstrap/scss/bootstrap";
+@import "./config.scss";
 
 @font-face {
-    font-family: 'Biennale Regular';
-    font-style: normal;
-    font-weight: normal;
-    src: url('../public/fonts/BiennaleRegular.otf') format('opentype');
+  font-family: "Biennale-Regular";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../public/fonts/Biennale-Regular.otf") format("opentype");
 }
 
 html {
-    height: 100%;
-    font-family: 'Biennale Regular';
+  height: 100%;
+  font-family: "Biennale-Regular";
 }
 
 body {
-    height: 100%;
-    font-family: 'Biennale Regular';
+  height: 100%;
+  font-family: "Biennale-Regular";
 }
 
-#__next{
-    height: 100%;
-    display: flex;
-    flex: 1 1 0%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-    padding: 0px;
+#__next {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  padding: 0;
 }
 
-@import './config.scss';
-@import './login.scss';
-@import './header.scss';
-@import './filtros.scss';
-@import './list.scss';
-@import './item.scss';
-@import './footer.scss';
-@import './modal.scss';
+@import "./login.scss";
+@import "./register.scss";
+@import "./header.scss";
+@import "./filters.scss";
+@import "./list.scss";
+@import "./item.scss";
+@import "./footer.scss";
+@import "./modal.scss";
 
 input, select {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    letter-spacing: 0.01em;
-    color: $primaryColor;
-    min-width: 180px;
-    background-color: transparent;
-    font-family: 'Biennale Regular';
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0.01em;
+  color: $primaryColor;
+  min-width: 100px;
+  background-color: transparent;
+  font-family: "Biennale-Regular";
+  align-self: center;
 
-    border-top-width: 0px;
-    border-left-width: 0px;
-    border-right-width: 0px;
-    border-bottom-width: 0.01em;
-    border-color: $mediumGreyColor;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-bottom-width: 0.01em;
+  border-right-width: 0;
+  border-color: $mediumGrayColor;
 
+  outline: none;
+  cursor: pointer;
+
+  &:focus {
+    border-color: $primaryColor;
+  }
+
+  &::placeholder &::-ms-input-placeholder &:-ms-input-placeholder {
+    color: $mediumGrayColor;
+    opacity: 1;
+  }
+
+  @media screen and (min-width:1024px) {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-color: $mediumGrayColor;
+    padding: 5px;
     outline: none;
-
-    cursor: pointer;
-
-    &:focus {
-        border-color: $primaryColor;
-    }
-
-    &::placeholder {
-        color: $mediumGreyColor;
-        opacity: 1;
-    }
-
-    &:-ms-input-placeholder {
-        color: $mediumGreyColor;
-    }
-
-    &::-ms-input-placeholder {
-        color: $mediumGreyColor;
-    }
+  }
 }
 
-@media screen and (min-width:1024px) {
-    input, select {
-        border-top-width: 1px;
-        border-left-width: 1px;
-        border-right-width: 1px;
-        border-bottom-width: 1px;
-        border-radius: 8px;
-        padding: 5px;
-        outline: none;
-    }
-}
