@@ -1,4 +1,4 @@
-# frontend
+# Projeto Gerenciador de Tarefas - FIAP
 Projeto gerenciador de tarefas FIAP com React no FE e Next no BE
 
 Para executar o projeto subir o Banco de Dados MongoDB - /MongDB
